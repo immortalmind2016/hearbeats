@@ -2,26 +2,29 @@
 
 
 var jwt = require('jsonwebtoken');
+
 const User=require("../models/User")
 const signup=(req,res,err)=>{
+
    let userData=req.body.data;
    console.log(req.body)
    let user=new User({...userData})
-   User.find({email:user.email},(err,usr)=>{
+   User.findOne({email:userData.email},(err,usr)=>{
+       console.log("USER" ,usr)
        if(usr){
              return res.json({success:false,error:"user found "})
        }
    user.save((err,user)=>{
        console.log("USSSER ",err)
       
-       res.json(200)
+       res.json({success:true})
    })
    })
 
 }
 const login=(req,res,err)=>{
     console.log("BODYYY ",req.body.data)
-    User.find({email:req.body.data.email},(err,user)=>{
+    User.findOne({email:req.body.data.email},(err,user)=>{
         if(err){
              return res.json({success:false,error:"user not found "})
         }
