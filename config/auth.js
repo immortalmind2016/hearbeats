@@ -14,11 +14,16 @@ opts.secretOrKey = 'secret';
 
 passport.use("login",new JwtStrategy(opts, function(jwt_payload, done) {
 
-    let data=jwt_payload
+    let data=jwt_payload 
+    console.log("JWT ",data)
 
-        User.findOne({email:data.email,password:data.password}).then((user)=>{
-         done(null,user)
-    }).catch((err)=>{
+        User.findOne({email:data.email,password:data.password},(err,user)=>{
+            console.log(user ,"USER")
+      if(!err){
+    return done(null,user)
+        
+      }
+     
         console.log(err)
           done({err:"not found"})
          })
