@@ -4,18 +4,23 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "test-cov": "nyc mocha",
+    "start":"node index.js"
+
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "chai": "^4.2.0",
     "chai-http": "^4.2.1",
+    "cors": "^2.8.5",
     "express": "^4.16.4",
     "mocha": "^6.1.4",
     "mongoose": "^5.5.2",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
-    "request": "^2.88.0"
+    "request": "^2.88.0",
+    "socket.io": "^2.2.0"
   }
 }

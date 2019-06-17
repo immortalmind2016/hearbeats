@@ -18,8 +18,12 @@ class:Number,
 user:{
     type:schema.Types.ObjectId,
     ref:"User"
-}
-
+},
+created_date:{
+    type:Date,
+    default: new Date()
+},
+result:Number
 
 })
 module.exports=mongoose.model("Analysis",Analysis);

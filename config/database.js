@@ -1,5 +1,6 @@
 
 const mongoose=require("mongoose")
+// Singleton
 class Database{
     constructor(){
         this.url=""

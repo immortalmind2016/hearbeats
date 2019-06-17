@@ -37,7 +37,9 @@ Router.get("/",passport.authenticate("login",{session:false}),userController.cur
 @response : json ({token:"your token"}) - store it in localStorage
 
 */
+
 Router.post("/login",userController.login);  //post 
+
 
 
 module.exports=Router

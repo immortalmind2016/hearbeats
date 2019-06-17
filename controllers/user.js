@@ -2,10 +2,8 @@
 
 
 var jwt = require('jsonwebtoken');
-
 const User=require("../models/User")
 const signup=(req,res,err)=>{
-
    let userData=req.body.data;
    console.log(req.body)
    let user=new User({...userData})
@@ -19,13 +17,13 @@ const signup=(req,res,err)=>{
       
        res.json({success:true})
    })
-   })
-
+})
 }
-const login=(req,res,err)=>{
+const login=(req,res,err)=>{    
     console.log("BODYYY ",req.body.data)
     User.findOne({email:req.body.data.email},(err,user)=>{
-        if(err){
+        console.log("USER ",user)
+        if(!user){
              return res.json({success:false,error:"user not found "})
         }
         jwt.sign(req.body.data,"secret",(err,token)=>{

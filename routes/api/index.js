@@ -1,12 +1,12 @@
 
 
-
-const Router=require("express").Router();
+module.exports=(io)=>{
+    const Router=require("express").Router();
 
 const passport=require("../../config/auth")
 const indexController=require("../../controllers/index")
 /*
-@url : /api/index/analyze
+@url : /api/analyze
 @method :post
 @params: NULL
 @desc : analyze patient status
@@ -15,11 +15,11 @@ const indexController=require("../../controllers/index")
 @response : json ({success:true,result:(0 or 1)}) - store it in localStorage
 
 */
-Router.post("/analyze",passport.authenticate("login",{session:false}),indexController.analyze);  //get 
+Router.post("/analyze",passport.authenticate("login",{session:false}),indexController.analyze);  //post 
 
 
 /*
-@url : /api/index/
+@url : /api/
 @method :get
 @params: NULL
 @desc : get analysis history
@@ -31,4 +31,25 @@ Router.post("/analyze",passport.authenticate("login",{session:false}),indexContr
 Router.get("/",passport.authenticate("login",{session:false}),indexController.getAnalysis);  //get 
 
 
-module.exports=Router
+/*
+@url : /api/sent-notification
+@method :post
+@params: NULL
+@desc : login
+@type : publoc
+@required body : email , password   - e.g ( data : {email,passowrd})
+@response : json ({token:"your token"}) - store it in localStorage
+
+*/
+io.on('connection', function(socket){
+  console.log('a user connected');
+
+  console.log(socket.id)
+})
+Router.post("/send-notification",passport.authenticate("login",{session:false}),indexController.sendNotification);  //post 
+
+
+Router.get("/notifications",passport.authenticate("login",{session:false}),indexController.notifications); 
+Router.get("/analysis",passport.authenticate("login",{session:false}),indexController.getStatic);  //get 
+return Router
+}
